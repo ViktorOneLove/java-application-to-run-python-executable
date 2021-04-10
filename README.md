@@ -8,5 +8,3 @@
   * While waiting, every second the console displays how many seconds have passed since the start
   * After the end of the Python process, its result is also displayed in the console
 
-### Realization:
-  Implemented application
