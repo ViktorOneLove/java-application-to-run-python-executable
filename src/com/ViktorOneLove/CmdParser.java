@@ -8,7 +8,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class CmdParser {
-
+    /**
+     * Reads path to python executable
+     * Runs process
+     * Each seconds prints how many pass since start of execution
+     * In the end prints results of python executable process
+     */
     public void run() {
         Timer timer = new Timer();
         try {
@@ -21,17 +26,33 @@ public class CmdParser {
         }
     }
 
+    /**
+     * Reads from "standard" input stream
+     * @return string
+     */
     private String readInput() {
         Scanner scanner= new Scanner(System.in);
         System.out.println("Path to python executable: ");
         return scanner.nextLine();
     }
 
+    /**
+     * Appends command to input string
+     * @param stringToParse input string := path to executable
+     * @return string with added command
+     */
     private String parseInput(String stringToParse) {
         String commandToAppend = "-m timeit -r 10";
         return stringToParse + " " + commandToAppend;
     }
 
+    /**
+     * Execute input command
+     * Also print how many seconds pass since start of execution
+     * Print result of execution
+     * @param command command to run
+     * @param timer instance of java.util.Timer
+     */
     private void runCommand(String command, Timer timer) throws SecurityException, IOException,
             NullPointerException, IllegalArgumentException {
         Process process = Runtime.getRuntime().exec(command);
@@ -39,6 +60,11 @@ public class CmdParser {
         printResults(process, timer);
     }
 
+    /**
+     * Prints result of process
+     * @param process process from which print results
+     * @param timer instance of java.util.Timer
+     */
     public void printResults(Process process, Timer timer) throws IOException {
         BufferedReader output = new BufferedReader(new InputStreamReader(process.getInputStream()));
         BufferedReader errors = new BufferedReader(new InputStreamReader(process.getErrorStream()));
@@ -61,7 +87,10 @@ public class CmdParser {
 
 }
 
-
+/**
+ * Class for java.util.Timer.shedule method
+ * Each iteration increment counter by one
+ */
 class PrintTime extends TimerTask {
 
     PrintTime() {
